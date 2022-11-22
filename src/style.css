@@ -1,10 +1,14 @@
 #app {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   margin: 2rem;
+}
+
+footer {
+  margin: 3rem;
 }
 
 #paths {
