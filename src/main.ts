@@ -3,7 +3,7 @@ import { ENodeType, TMatrix, TPoint } from './types'
 import { findPathTo } from './lib/pathfinding'
 import { map, pipe, reduce, set } from 'ramda'
 import { lensPoint } from './lib/lensPoint'
-import { addElementMatrixToLayout, createNodeElement } from './lib/dom'
+import { putMatrixToDom } from './lib/dom'
 import Pathfinding from 'pathfinding'
 
 const MATRIX: TMatrix = [
@@ -30,13 +30,13 @@ const finders = [
   new Pathfinding.DijkstraFinder({ allowDiagonal: true })
 ]
 
-const paths = map(findPathTo(START_POINT, END_POINT, MATRIX), finders)
-
-const pathPipeline = pipe(
+const pointsToDom = pipe(
   map(lensPoint),
-  reduce((matrix, pointLens) => set(pointLens, ENodeType.path, matrix), MATRIX),
-  map(map(createNodeElement)),
-  addElementMatrixToLayout
+  reduce((matrix, lens) => set(lens, ENodeType.path, matrix), MATRIX),
+  putMatrixToDom
 )
 
-map(pathPipeline, paths)
+const pathFind = pipe(findPathTo(START_POINT, END_POINT, MATRIX), pointsToDom)
+
+pointsToDom([START_POINT, END_POINT])
+map(pathFind, finders)

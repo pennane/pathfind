@@ -1,17 +1,17 @@
-import { lens } from 'ramda'
+import { lens, path } from 'ramda'
 import { ENodeType, TMatrix, TPoint } from '../types'
 
 const getPointFromMatrix =
   ([x, y]: TPoint) =>
-  (g: TMatrix) =>
-    g[y][x]
+  (matrix: TMatrix) =>
+    path([y, x], matrix)
 
 const setPointOfMatrix =
   ([x, y]: TPoint) =>
-  (v: ENodeType, g: TMatrix) => {
-    const grid: TMatrix = [...g]
-    grid[y] = [...g[y]]
-    grid[y][x] = v
+  (value: ENodeType, matrix: TMatrix) => {
+    const grid: TMatrix = [...matrix]
+    grid[y] = [...matrix[y]]
+    grid[y][x] = value
     return grid
   }
 

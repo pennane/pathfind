@@ -1,3 +1,4 @@
+import { map, pipe } from 'ramda'
 import { ENodeType } from '../types'
 import { nodeTypeToClassname } from './util'
 
@@ -19,7 +20,7 @@ const createRowElement = () => {
   return row
 }
 
-export const addElementMatrixToLayout = (elementMatrix: HTMLDivElement[][]) => {
+const addElementMatrixToDom = (elementMatrix: HTMLDivElement[][]) => {
   const gridElement = createGridElement()
 
   for (const row of elementMatrix) {
@@ -32,3 +33,8 @@ export const addElementMatrixToLayout = (elementMatrix: HTMLDivElement[][]) => {
 
   document.querySelector('#paths')?.appendChild(gridElement)
 }
+
+export const putMatrixToDom = pipe(
+  map(map(createNodeElement)),
+  addElementMatrixToDom
+)
