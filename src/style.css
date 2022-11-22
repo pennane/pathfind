@@ -1,0 +1,39 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+
+#paths {
+  display: flex;
+  gap: 1rem;
+
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.node {
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid black;
+}
+
+.node.obstacle {
+  background-color: black;
+}
+
+.node.path {
+  background-color: green;
+}
